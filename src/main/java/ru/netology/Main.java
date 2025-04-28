@@ -1,7 +1,9 @@
 package ru.netology;
 
-import ru.netology.handlers.ClientHandlerImpl;
-import java.util.List;
+import ru.netology.entity.Request;
+import ru.netology.handlers.Handler;
+
+import java.io.BufferedOutputStream;
 
 public class Main {
 
@@ -9,8 +11,20 @@ public class Main {
     private static final int COUNT_THREADS = 64;
 
     public static void main(String[] args) {
-        final List<String> validPaths = List.of("/index.html", "/spring.svg", "/spring.png", "/resources.html", "/styles.css", "/app.js", "/links.html", "/forms.html", "/classic.html", "/events.html", "/events.js");
-        new Server(SERVER_PORT).start().startListening(COUNT_THREADS, new ClientHandlerImpl(validPaths));
+        Server server = new Server();
+
+        server.addHandler("GET", "/index.html", new Handler() {
+            public void handle(Request request, BufferedOutputStream responseStream) {
+                // TODO: handlers code
+            }
+        });
+        server.addHandler("POST", "/spring.svg", new Handler() {
+            public void handle(Request request, BufferedOutputStream responseStream) {
+                // TODO: handlers code
+            }
+        });
+
+        server.listen(SERVER_PORT, COUNT_THREADS);
 
     }
 }
